@@ -1183,6 +1183,12 @@ button:focus {
   outline-offset: 2px;
 }
 
+/* Logo focus: Remove outline but maintain accessibility */
+.logo:focus {
+  outline: none;
+  /* No visual indication needed for logo area */
+}
+
 .nav__link:focus {
   outline: 2px solid var(--forest-green);
   outline-offset: 2px;
