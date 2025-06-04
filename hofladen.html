@@ -10,8 +10,27 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" type="image/svg+xml" href="logo.svg" />
+    <!-- Progressive Enhancement: No-JS fallback styles -->
+    <noscript>
+      <style>
+        .nav__list {
+          display: block !important;
+          position: static !important;
+          background: transparent !important;
+          box-shadow: none !important;
+          width: 100% !important;
+          margin-top: 1rem !important;
+        }
+        .nav__toggle {
+          display: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
+    <!-- Progressive Enhancement: Skip navigation for accessibility -->
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
     <header class="header">
       <div class="container header__container">
         <a href="index.html" class="logo">
@@ -53,39 +72,73 @@
       </nav>
     </header>
 
-    <main>
-      <section class="hero">
+    <main id="main-content">
+      <section class="hero hero--hofladen">
         <div class="container">
-          <div class="hero__content">
-            <h1>Hofladen</h1>
-          </div>
+          <div class="hero__content"></div>
         </div>
       </section>
 
       <section class="section">
         <div class="container">
-          <p>
-            <strong>Unsere Öffnungszeiten:</strong> Dienstag bis Samstag 7–12
-            Uhr, Donnerstag auch 15–18 Uhr
+          <h2 class="hofladen__hours">Unsere Öffnungszeiten:</h2>
+          <p class="hofladen__info">
+            Dienstag bis Samstag 7–12 Uhr, Donnerstag auch 15–18 Uhr
           </p>
 
-          <h2>Immer zu haben:</h2>
-          <p>Welsfilet natur, gebeizt, geräuchert</p>
-          <p>Fischbällchen Fischspieße</p>
-          <p>Im Glas: Wels-Matjes Fischfond Rucolapesto Basilikumpesto</p>
-          <p>Kartoffeln Zwiebeln</p>
-
-          <h2>Jahreszeitlich wechselndes Sortiment:</h2>
-          <p>
-            Winter (eingeschränktes Angebot): u. a. diverse Kohl-, Wurzel- und
-            Rübensorten aus eigenem biologischem Anbau oder aus der Region.
-          </p>
-          <p>Kommen Sie vorbei, lassen Sie sich überraschen!</p>
-          <p>
+          <p class="hofladen__contact">
             Für Rat und Tat stehen wir Ihnen auch telefonisch und per Mail zur
-            Verfügung:
+            Verfügung:<br /><a href="mailto:Hofladen@agenfinow.de"
+              >Hofladen@agenfinow.de</a
+            >, <a href="tel:033362123-44">Tel: 033362/123-44</a>
           </p>
-          <p>Hofladen@agenfinow.de, Tel: 033362/123-44</p>
+
+          <div class="grid grid--2 hofladen__grid">
+            <div class="card">
+              <img
+                src="X_DATEN/Spinat.jpg"
+                alt="Frischer Spinat"
+                class="card__image hofladen__card-image"
+              />
+              <div class="card__content hofladen__card-content">
+                <h2 class="hofladen__card-title">Immer zu haben:</h2>
+                <ul class="hofladen__product-list">
+                  <li class="hofladen__product-item">
+                    • Welsfilet natur gebeizt geräuchert
+                  </li>
+                  <li class="hofladen__product-item">• Fischbällchen</li>
+                  <li class="hofladen__product-item">• Fischspieße</li>
+                  <li class="hofladen__product-item">• Kartoffeln</li>
+                  <li class="hofladen__product-item">• Zwiebeln</li>
+                  <br />
+                  <li class="hofladen__product-category">Im Glas:</li>
+                  <li class="hofladen__product-subitem">• Wels-Matjes</li>
+                  <li class="hofladen__product-subitem">• Fischfond</li>
+                  <li class="hofladen__product-subitem">• Rucolapesto</li>
+                  <li class="hofladen__product-subitem">• Basilikumpesto</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="X_DATEN/Rosenkohl.jpg"
+                alt="Rosenkohl"
+                class="card__image hofladen__card-image"
+              />
+              <div class="card__content hofladen__card-content">
+                <h2 class="hofladen__card-title">
+                  Jahreszeitlich wechselndes Sortiment:
+                </h2>
+                <p class="hofladen__description">
+                  Winter (eingeschränktes Angebot): u. a. diverse Kohl-, Wurzel-
+                  und Rübensorten aus eigenem biologischem Anbau oder aus der
+                  Region.<br /><br />Kommen Sie vorbei, lassen Sie sich
+                  überraschen!
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>

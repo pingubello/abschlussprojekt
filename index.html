@@ -12,8 +12,34 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" type="image/svg+xml" href="logo.svg" />
+    <!-- Progressive Enhancement: No-JS fallback styles -->
+    <noscript>
+      <style>
+        .nav__list {
+          display: block !important;
+          position: static !important;
+          background: transparent !important;
+          box-shadow: none !important;
+          width: 100% !important;
+          margin-top: 1rem !important;
+        }
+        .nav__toggle {
+          display: none !important;
+        }
+        /* Slideshow fallback: show first slide only */
+        .slide:not(.active) {
+          display: none;
+        }
+        .slideshow__indicators {
+          display: none;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
+    <!-- Progressive Enhancement: Skip navigation for accessibility -->
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
     <header class="header">
       <div class="container header__container">
         <a href="index.html" class="logo">
@@ -53,7 +79,7 @@
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <div class="slideshow slideshow--fullwidth">
         <div class="slide active" data-recipe-url="wels-carpaccio.html">
           <img

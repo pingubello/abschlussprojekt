@@ -52,27 +52,95 @@
     </header>
 
     <main>
-      <section class="hero">
+      <section
+        class="hero"
+        style="
+          background: linear-gradient(
+              rgba(63, 84, 39, 0.7),
+              rgba(63, 84, 39, 0.7)
+            ),
+            url('X_DATEN/Wels5.jpg') center/cover no-repeat;
+          min-height: 30vh;
+        "
+      >
         <div class="container">
-          <div class="hero__content">
-            <h1>Kontakt und Impressum</h1>
-          </div>
+          <div class="hero__content"></div>
         </div>
       </section>
 
       <section class="section">
         <div class="container">
-          <address>
-            <strong>Agrargenossenschaft Finow eG</strong><br />
-            Kirchstraße 10 16248 Liepe<br />
-            Tel: <a href="tel:033362123-0">033362/123-0</a> Fax:
-            033362/123-99<br />
-            <a href="https://www.agenfinow.de">www.agenfinow.de</a>
-            <a href="mailto:info@agenfinow.de">info@agenfinow.de</a><br />
-            Vorstand: Julia Kurt, Jonas Janczek<br />
-            Registergericht Frankfurt/Oder GnR007-007<br />
-            Umsatzsteuer-Identifikationsnummer DE1212121212
-          </address>
+          <h2
+            style="
+              color: var(--meadow-green);
+              font-size: 2rem;
+              margin-bottom: var(--spacing-xl);
+            "
+          >
+            Kontakt und Impressum
+          </h2>
+
+          <div
+            class="grid grid--2"
+            style="gap: var(--spacing-xl); padding-bottom: 80px"
+          >
+            <div class="card">
+              <img
+                src="X_DATEN/Gemuesekiste2.jpg"
+                alt="Gemüsekiste"
+                class="card__image"
+                style="height: 300px; object-fit: cover"
+              />
+              <div class="card__content" style="padding-top: 0">
+                <h2
+                  style="
+                    color: var(--meadow-green);
+                    margin-top: 30px;
+                    margin-bottom: var(--spacing-sm);
+                  "
+                >
+                  Agrargenossenschaft Finow eG
+                </h2>
+                <address
+                  style="font-style: normal; line-height: 1.3; margin-top: 0"
+                >
+                  Kirchstraße 10<br />
+                  16248 Liepe<br />
+                  Tel: <a href="tel:033362123-0">033362/123-0</a><br />
+                  Fax: 033362/123-99<br />
+                  <a href="https://www.agenfinow.de">www.agenfinow.de</a><br />
+                  <a href="mailto:info@agenfinow.de">info@agenfinow.de</a>
+                </address>
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="X_DATEN/Wildsalat2.jpg"
+                alt="Wildsalat"
+                class="card__image"
+                style="height: 300px; object-fit: cover"
+              />
+              <div class="card__content" style="padding-top: 0">
+                <h2
+                  style="
+                    color: var(--meadow-green);
+                    margin-top: 30px;
+                    margin-bottom: var(--spacing-sm);
+                  "
+                >
+                  Impressum
+                </h2>
+                <address
+                  style="font-style: normal; line-height: 1.3; margin-top: 0"
+                >
+                  Vorstand: Julia Kurt, Jonas Janczek<br />
+                  Registergericht Frankfurt/Oder GnR007-007<br />
+                  Umsatzsteuer-Identifikationsnummer DE1212121212
+                </address>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
