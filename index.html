@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Agrargenossenschaft Finow eG - Fisch und Gemüse aus einer Zucht
+    </title>
+    <meta
+      name="description"
+      content="Agrargenossenschaft Finow eG - Fisch und Gemüse aus einer Zucht"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header__container">
+        <a href="index.html" class="logo">
+          <img
+            src="logo.svg"
+            alt="Agrargenossenschaft Finow Logo"
+            class="logo__image"
+          />
+          <div class="logo__text">
+            <h1>Agrargenossenschaft Finow eG</h1>
+            <p class="logo__tagline">Fisch und Gemüse aus einer Zucht</p>
+          </div>
+        </a>
+
+        <button class="nav__toggle" aria-label="Navigation umschalten">
+          ☰
+        </button>
+      </div>
+
+      <nav class="nav">
+        <ul class="nav__list">
+          <li>
+            <a href="index.html" class="nav__link nav__link--active">Home</a>
+          </li>
+          <li><a href="wir.html" class="nav__link">Wir</a></li>
+          <li><a href="news.html" class="nav__link">News</a></li>
+          <li><a href="rezepte.html" class="nav__link">Rezepte</a></li>
+          <li><a href="hofladen.html" class="nav__link">Hofladen</a></li>
+          <li><a href="jobs.html" class="nav__link">Jobs</a></li>
+          <li>
+            <a href="kontakt.html" class="nav__link">Kontakt und Impressum</a>
+          </li>
+          <li>
+            <a href="datenschutz.html" class="nav__link">Datenschutz</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="slideshow slideshow--fullwidth">
+        <div class="slide active" data-recipe-url="wels-carpaccio.html">
+          <img
+            src="X_DATEN/Welsfilet.jpg"
+            alt="Die Neujahrsvorspeise: Wels auf Carpaccio aus Roten Beten"
+            class="slide__image"
+          />
+          <div class="slide__content">
+            <h3 class="slide__title">
+              Die Neujahrsvorspeise:<br />
+              Wels auf Carpaccio aus Roten Beten
+            </h3>
+          </div>
+        </div>
+
+        <div class="slide" data-recipe-url="wels-spargel.html">
+          <img
+            src="X_DATEN/_bearbeitet/Spargel_b.jpg"
+            alt="Die Alternative: Welsfilet mit Spargel"
+            class="slide__image"
+          />
+          <div class="slide__content">
+            <h3 class="slide__title">
+              Die Alternative:<br />
+              Welsfilet mit Spargel
+            </h3>
+          </div>
+        </div>
+
+        <div class="slide" data-recipe-url="blumenkohl-ofen.html">
+          <img
+            src="X_DATEN/_bearbeitet/Gemuese3_b.jpg"
+            alt="Der Muntermacher: Blumenkohl aus dem Ofen"
+            class="slide__image"
+          />
+          <div class="slide__content">
+            <h3 class="slide__title">
+              Der Muntermacher:<br />
+              Blumenkohl aus dem Ofen
+            </h3>
+          </div>
+        </div>
+
+        <div class="slide" data-recipe-url="mangoldpizza.html">
+          <img
+            src="X_DATEN/_bearbeitet/Mangold_b.jpg"
+            alt="Die grüne Freude: Mangoldpizza"
+            class="slide__image"
+          />
+          <div class="slide__content">
+            <h3 class="slide__title">
+              Die grüne Freude:<br />
+              Mangoldpizza
+            </h3>
+          </div>
+        </div>
+
+        <div class="slide" data-recipe-url="mediterrane-gemuese.html">
+          <img
+            src="X_DATEN/Paprika.jpg"
+            alt="Die Urlaubserinnerung: Mediterrane Gemüsepfanne"
+            class="slide__image"
+          />
+          <div class="slide__content">
+            <h3 class="slide__title">
+              Die Urlaubserinnerung:<br />
+              Mediterrane Gemüsepfanne
+            </h3>
+          </div>
+        </div>
+
+        <div class="slideshow__indicators">
+          <button
+            class="indicator active"
+            aria-label="Zu Rezept 1 wechseln"
+          ></button>
+          <button class="indicator" aria-label="Zu Rezept 2 wechseln"></button>
+          <button class="indicator" aria-label="Zu Rezept 3 wechseln"></button>
+          <button class="indicator" aria-label="Zu Rezept 4 wechseln"></button>
+          <button class="indicator" aria-label="Zu Rezept 5 wechseln"></button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__bottom">
+          <p>
+            <span class="copyright"
+              >&copy; 2025 Agrargenossenschaft Finow eG</span
+            >
+            <span class="footer-links">
+              <a href="kontakt.html">Impressum</a>
+              <a href="datenschutz.html">Datenschutz</a>
+            </span>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
