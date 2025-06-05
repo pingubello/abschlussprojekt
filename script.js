@@ -27,41 +27,73 @@ function enhanceMobileNavigation() {
 
   if (!navToggle || !navList) return;
 
-  // Basic click handler
-  navToggle.addEventListener("click", function (e) {
-    e.preventDefault();
-    toggleClass(navList, "active");
+  // Set initial hamburger icon
+  navToggle.textContent = "☰";
+  navToggle.setAttribute("aria-label", "Navigation öffnen");
 
-    // Update accessibility attributes
-    const isOpen = navList.classList.contains("active");
-    navToggle.setAttribute("aria-expanded", isOpen);
-    navToggle.textContent = isOpen ? "✕" : "☰";
+  // Basic click handler
+  navToggle.addEventListener("click", function () {
+    const isActive = navList.classList.contains("active");
+
+    if (isActive) {
+      // Close menu
+      navList.classList.remove("active");
+      document.body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-label", "Navigation öffnen");
+      navToggle.textContent = "☰"; // Show hamburger lines
+    } else {
+      // Open menu
+      navList.classList.add("active");
+      document.body.classList.add("nav-open");
+      navToggle.setAttribute("aria-label", "Navigation schließen");
+      navToggle.textContent = "✕"; // Show X
+    }
   });
 
-  // Close menu when clicking links
-  const navLinks = navList.querySelectorAll(".nav__link");
+  // Close navigation when clicking on a link (mobile)
+  const navLinks = document.querySelectorAll(".nav__link");
   navLinks.forEach(function (link) {
     link.addEventListener("click", function () {
-      removeClass(navList, "active");
-      navToggle.setAttribute("aria-expanded", "false");
-      navToggle.textContent = "☰";
+      if (window.innerWidth <= 767) {
+        navList.classList.remove("active");
+        document.body.classList.remove("nav-open");
+        navToggle.setAttribute("aria-label", "Navigation öffnen");
+        navToggle.textContent = "☰"; // Reset to hamburger lines
+      }
     });
   });
 
-  // Close menu when clicking outside
+  // Close navigation when clicking outside (mobile)
   document.addEventListener("click", function (e) {
-    if (!navToggle.contains(e.target) && !navList.contains(e.target)) {
-      removeClass(navList, "active");
-      navToggle.setAttribute("aria-expanded", "false");
-      navToggle.textContent = "☰";
+    if (
+      window.innerWidth <= 767 &&
+      navList.classList.contains("active") &&
+      !navToggle.contains(e.target) &&
+      !navList.contains(e.target)
+    ) {
+      navList.classList.remove("active");
+      document.body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-label", "Navigation öffnen");
+      navToggle.textContent = "☰"; // Reset to hamburger lines
+    }
+  });
+
+  // Handle window resize - ensure body scroll is restored
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 767) {
+      navList.classList.remove("active");
+      document.body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-label", "Navigation öffnen");
+      navToggle.textContent = "☰"; // Reset to hamburger lines
     }
   });
 
   // Escape key to close menu
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && navList.classList.contains("active")) {
-      removeClass(navList, "active");
-      navToggle.setAttribute("aria-expanded", "false");
+      navList.classList.remove("active");
+      document.body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-label", "Navigation öffnen");
       navToggle.textContent = "☰";
       navToggle.focus();
     }
@@ -75,93 +107,159 @@ function enhanceSlideshow() {
 
   if (slides.length === 0) return;
 
+  // Prevent multiple initializations
+  if (window.slideshowInitialized) {
+    console.log("Slideshow already initialized, skipping...");
+    return;
+  }
+  window.slideshowInitialized = true;
+
   let currentSlide = 0;
   let slideInterval = null;
+  let isTransitioning = false; // Prevent rapid transitions
 
   function showSlide(index) {
-    // Remove active from all
-    slides.forEach(function (slide) {
-      removeClass(slide, "active");
-    });
-    indicators.forEach(function (indicator) {
-      removeClass(indicator, "active");
+    // Prevent multiple rapid calls
+    if (isTransitioning) {
+      console.log("Transition in progress, skipping...");
+      return;
+    }
+
+    if (index < 0 || index >= slides.length) {
+      console.log("Invalid slide index:", index);
+      return;
+    }
+
+    isTransitioning = true;
+
+    // Force remove active class from ALL indicators using querySelectorAll
+    const allIndicators = document.querySelectorAll(".indicator");
+    const allSlides = document.querySelectorAll(".slide");
+
+    // Clear everything first
+    allIndicators.forEach(function (indicator) {
+      indicator.classList.remove("active");
     });
 
-    // Add active to current
-    if (slides[index]) {
-      addClass(slides[index], "active");
+    allSlides.forEach(function (slide) {
+      slide.classList.remove("active");
+    });
+
+    // Set new active states
+    if (allSlides[index]) {
+      allSlides[index].classList.add("active");
       currentSlide = index;
     }
-    if (indicators[index]) {
-      addClass(indicators[index], "active");
+
+    if (allIndicators[index]) {
+      allIndicators[index].classList.add("active");
     }
+
+    // Allow next transition after a short delay
+    setTimeout(function () {
+      isTransitioning = false;
+    }, 100);
   }
 
   function nextSlide() {
+    if (isTransitioning) return;
     const next = (currentSlide + 1) % slides.length;
     showSlide(next);
   }
 
   function startAutoplay() {
-    slideInterval = setInterval(nextSlide, 7000);
+    // Always stop existing interval first
+    stopAutoplay();
+    slideInterval = setInterval(nextSlide, 4000);
+    console.log("Autoplay started");
   }
 
   function stopAutoplay() {
     if (slideInterval) {
       clearInterval(slideInterval);
       slideInterval = null;
+      console.log("Autoplay stopped");
     }
   }
 
   // Initialize first slide
   showSlide(0);
 
-  // Add click handlers to indicators
-  indicators.forEach(function (indicator, index) {
-    indicator.addEventListener("click", function () {
-      showSlide(index);
+  // Add click handlers to indicators - use event delegation to prevent duplicates
+  const indicatorContainer = document.querySelector(".slideshow__indicators");
+  if (indicatorContainer) {
+    // Remove any existing listeners first
+    indicatorContainer.removeEventListener("click", handleIndicatorClick);
+    indicatorContainer.addEventListener("click", handleIndicatorClick);
+  }
+
+  function handleIndicatorClick(e) {
+    if (!e.target.classList.contains("indicator")) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Find the index of the clicked indicator
+    const clickedIndicator = e.target;
+    const allIndicators = Array.from(document.querySelectorAll(".indicator"));
+    const index = allIndicators.indexOf(clickedIndicator);
+
+    if (index !== -1 && index !== currentSlide) {
+      console.log("User clicked indicator:", index);
       stopAutoplay();
-      startAutoplay(); // Restart autoplay
-    });
-  });
+      showSlide(index);
+      // Restart autoplay after user interaction
+      setTimeout(startAutoplay, 500);
+    }
+  }
 
   // Add click handlers to slides for recipe navigation
   slides.forEach(function (slide) {
     const recipeUrl = slide.getAttribute("data-recipe-url");
     if (recipeUrl) {
       slide.addEventListener("click", function (e) {
-        // Don't navigate if clicking on indicators
-        if (!e.target.classList.contains("indicator")) {
-          window.location.href = recipeUrl;
+        if (
+          e.target.classList.contains("indicator") ||
+          e.target.closest(".slideshow__indicators")
+        ) {
+          return;
         }
+        window.location.href = recipeUrl;
       });
-      // Add cursor pointer to indicate clickability
       slide.style.cursor = "pointer";
     }
   });
 
-  // Start autoplay
-  startAutoplay();
+  // Start autoplay after everything is set up
+  setTimeout(startAutoplay, 500);
 
   // Pause on hover
   const slideshow = document.querySelector(".slideshow");
   if (slideshow) {
     slideshow.addEventListener("mouseenter", stopAutoplay);
-    slideshow.addEventListener("mouseleave", startAutoplay);
+    slideshow.addEventListener("mouseleave", function () {
+      setTimeout(startAutoplay, 200);
+    });
   }
 
   // Keyboard navigation
   document.addEventListener("keydown", function (e) {
     if (e.key === "ArrowLeft") {
       const prev = (currentSlide - 1 + slides.length) % slides.length;
+      stopAutoplay();
       showSlide(prev);
-      stopAutoplay();
-      startAutoplay();
+      setTimeout(startAutoplay, 500);
     } else if (e.key === "ArrowRight") {
-      nextSlide();
       stopAutoplay();
-      startAutoplay();
+      nextSlide();
+      setTimeout(startAutoplay, 500);
     }
+  });
+
+  // Cleanup on page unload
+  window.addEventListener("beforeunload", function () {
+    stopAutoplay();
+    window.slideshowInitialized = false;
   });
 }
 
@@ -294,6 +392,15 @@ function debouncedResize() {
 
 // Initialize all enhancements when DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
+  // Prevent multiple initializations
+  if (window.jsEnhancementsLoaded) {
+    console.log("JavaScript enhancements already loaded, skipping...");
+    return;
+  }
+  window.jsEnhancementsLoaded = true;
+
+  console.log("Initializing JavaScript enhancements...");
+
   // Add js-enabled class for progressive enhancement
   document.body.classList.add("js-enabled");
 
@@ -303,6 +410,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // enhanceActiveNavigation(); // Disabled - using manual HTML active states instead
   enhanceAccessibility();
   enhanceSmoothScrolling();
+
+  console.log("JavaScript enhancements loaded successfully");
 });
 
 // Handle window resize
